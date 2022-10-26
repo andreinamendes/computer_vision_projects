@@ -1,0 +1,3 @@
+# Ignore pastas criadas automaticamente pelo python
+__pycache__
+vision
