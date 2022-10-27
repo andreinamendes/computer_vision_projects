@@ -2,12 +2,12 @@ import cv2
 import mediapipe as mp
 import time
 
-cap = cv2.VideoCapture("http://192.168.0.5:4747/video")
+cap = cv2.VideoCapture("http://192.168.0.100:4747/video")
 pTime = 0
 
-mpDraw = mp.solutions.drawing_utils
-mpFaceMesh = mp.solutions.face_mesh
-faceMesh = mpFaceMesh.FaceMesh(max_num_faces=1)
+mpDraw = mp.solutions.drawing_utils  # type: ignore
+mpFaceMesh = mp.solutions.face_mesh  # type: ignore
+faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
 drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=1)
 
 while True:
@@ -19,7 +19,7 @@ while True:
         for faceLm in results.multi_face_landmarks:
             mpDraw.draw_landmarks(img, faceLm, mpFaceMesh.FACEMESH_CONTOURS, drawSpec, drawSpec)
             
-            for l, in faceLm.landmark:
+            for lm in faceLm.landmark:
                 ih, iw, ic = img.shape
                 x, y = int(lm.x * iw), int(lm.y * ih)
 
